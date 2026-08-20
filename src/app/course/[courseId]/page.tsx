@@ -1,5 +1,5 @@
 import { redirect, notFound } from 'next/navigation';
-import content from '../../../data/content.json';
+import content from '../../../../content.json';
 
 export default async function CoursePage({ params }: { params: Promise<{ courseId: string }> }) {
   const { courseId } = await params;

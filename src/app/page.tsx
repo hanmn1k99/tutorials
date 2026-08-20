@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import content from '../data/content.json';
+import content from '../../content.json';
 import config from '../../config.json';
 
 export default function Home() {

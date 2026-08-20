@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useParams } from 'next/navigation';
-import content from '../../data/content.json';
+import content from '../../content.json';
 
 export default function Sidebar() {
   const pathname = usePathname();

@@ -17,7 +17,7 @@
 - **Tối ưu hóa hệ thống:** Tốc độ load cực nhanh nhờ Next.js 14, hỗ trợ Build Standalone cho Docker.
 
 ## ⚙️ Tùy Chỉnh Thương Hiệu & Dữ Liệu
-Hệ thống được thiết kế để bạn tự do đổi tên thương hiệu. Hãy mở file `src/data/content.json` và sửa phần `siteConfig`:
+Hệ thống được thiết kế để bạn tự do đổi tên thương hiệu. Hãy mở file `config.json` để sửa thương hiệu, và sửa kịch bản khóa học ở file `content.json`:
 ```json
 {
   "siteConfig": {
