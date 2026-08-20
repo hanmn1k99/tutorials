@@ -7,38 +7,72 @@ Một nền tảng xem video hướng dẫn giống Gitbook, được xây dựn
 - Nút chuyển bài (Trước/Tiếp theo).
 - Xem video Youtube/HTML5 dễ dàng.
 
-## Hướng dẫn Triển khai trên Ubuntu Server (Sử dụng Docker)
+## Hướng dẫn Triển khai Thủ công trên Ubuntu Server (Sử dụng Docker)
 
-Dự án này đã được cấu hình sẵn `Dockerfile` và `docker-compose.yml` để bạn dễ dàng triển khai.
+Phần này hướng dẫn bạn cách tự tạo thư mục, tự cấu hình file chạy Docker để có thể hoàn toàn kiểm soát dự án của mình thay vì dùng cấu hình làm sẵn.
 
 ### Yêu cầu
 - Máy chủ Ubuntu đã cài đặt **Docker** và **Docker Compose**.
 - Đã cài đặt **Git**.
 
-### Các bước thực hiện
+### Các bước thực hiện chi tiết
 
-1. **Clone mã nguồn từ Github về server của bạn:**
-   ```bash
-   git clone https://github.com/hanmn1k99/tutorials.git
-   cd tutorials
-   ```
+**Bước 1: Tạo thư mục làm việc trên Server**
+Đầu tiên, hãy tạo một thư mục riêng cho dự án và di chuyển vào đó:
+```bash
+mkdir -p /opt/videobook
+cd /opt/videobook
+```
 
-2. **Chạy ứng dụng với Docker Compose:**
-   ```bash
-   sudo docker-compose up -d --build
-   ```
+**Bước 2: Lấy mã nguồn từ Github**
+Tải mã nguồn về bên trong thư mục vừa tạo (ví dụ clone vào thư mục `app`):
+```bash
+git clone https://github.com/hanmn1k99/tutorials.git app
+```
 
-3. **Kiểm tra trạng thái:**
-   ```bash
-   sudo docker-compose ps
-   ```
-   Ứng dụng sẽ chạy ở cổng `3000`. Bạn có thể truy cập bằng địa chỉ IP server của bạn: `http://<IP-SERVER>:3000`.
+**Bước 3: Tự tạo cấu hình docker-compose.yml**
+Tạo file `docker-compose.yml` để cấu hình port và quản lý container theo ý bạn:
+```bash
+nano docker-compose.yml
+```
+Dán nội dung sau vào file (bạn có thể thay đổi port `3000:3000` thành port khác như `8080:3000` nếu muốn đổi cổng truy cập):
+```yaml
+version: '3.8'
+services:
+  videobook-web:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: videobook-app
+    ports:
+      - "3000:3000" # Sửa số 3000 đầu tiên thành port bạn muốn
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+```
+Lưu lại (Nhấn `Ctrl+O`, `Enter`, rồi `Ctrl+X`).
 
-4. **Nếu muốn cập nhật khi có code mới:**
-   ```bash
-   git pull origin main
-   sudo docker-compose up -d --build
-   ```
+**Bước 4: Khởi chạy dự án**
+Chạy lệnh sau để Docker bắt đầu build mã nguồn và chạy ứng dụng:
+```bash
+sudo docker-compose up -d --build
+```
+
+**Bước 5: Kiểm tra kết quả**
+Xem log để đảm bảo app đang chạy tốt:
+```bash
+sudo docker-compose logs -f
+```
+Bây giờ, bạn có thể truy cập `http://<IP-SERVER>:<PORT-BẠN-ĐẶT>` để xem kết quả.
+
+**Khi có cập nhật code mới:**
+Bạn chỉ cần vào thư mục `app`, kéo code mới về và build lại hệ thống:
+```bash
+cd /opt/videobook/app
+git pull origin main
+cd ..
+sudo docker-compose up -d --build
+```
 
 ---
 
