@@ -1,35 +1,46 @@
 {
-  "modules": [
+  "courses": [
     {
-      "id": "module-1",
-      "title": "1. Bắt đầu với phần mềm",
-      "lessons": [
+      "id": "phan-mem-a",
+      "title": "Hướng dẫn Phần mềm Quản lý A",
+      "description": "Khóa học chi tiết cách sử dụng phần mềm A cho nhân viên mới.",
+      "modules": [
         {
-          "id": "gioi-thieu",
-          "title": "1.1 Giới thiệu tổng quan",
-          "videoId": "dQw4w9WgXcQ",
-          "type": "youtube",
-          "description": "Video giới thiệu tổng quan về phần mềm và những tính năng chính."
-        },
-        {
-          "id": "cai-dat",
-          "title": "1.2 Hướng dẫn cài đặt",
-          "videoId": "jNQXAC9IVRw",
-          "type": "youtube",
-          "description": "Cách tải và cài đặt phần mềm lên máy tính của bạn."
+          "id": "module-1",
+          "title": "1. Bắt đầu",
+          "lessons": [
+            {
+              "id": "gioi-thieu",
+              "title": "1.1 Giới thiệu tổng quan",
+              "videoId": "dQw4w9WgXcQ",
+              "description": "Video giới thiệu tổng quan."
+            },
+            {
+              "id": "cai-dat",
+              "title": "1.2 Hướng dẫn cài đặt",
+              "videoId": "jNQXAC9IVRw",
+              "description": "Cách tải và cài đặt phần mềm."
+            }
+          ]
         }
       ]
     },
     {
-      "id": "module-2",
-      "title": "2. Sử dụng các tính năng cơ bản",
-      "lessons": [
+      "id": "ky-nang-b",
+      "title": "Quy trình Bán hàng B",
+      "description": "Kịch bản video hướng dẫn các bước bán hàng tiêu chuẩn.",
+      "modules": [
         {
-          "id": "tinh-nang-1",
-          "title": "2.1 Tính năng số 1",
-          "videoId": "LXb3EKWsInQ",
-          "type": "youtube",
-          "description": "Hướng dẫn sử dụng tính năng cơ bản đầu tiên."
+          "id": "module-1",
+          "title": "1. Tìm kiếm khách hàng",
+          "lessons": [
+            {
+              "id": "tim-kiem",
+              "title": "1.1 Kỹ năng tìm kiếm",
+              "videoId": "LXb3EKWsInQ",
+              "description": "Hướng dẫn tìm kiếm khách hàng."
+            }
+          ]
         }
       ]
     }

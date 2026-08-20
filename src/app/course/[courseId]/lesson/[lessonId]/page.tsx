@@ -1,21 +1,25 @@
 import Link from 'next/link';
+import content from '../../../../data/content.json';
 import { notFound } from 'next/navigation';
-import content from '../../../data/content.json';
 
-export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+export default async function LessonPage({ 
+  params 
+}: { 
+  params: Promise<{ courseId: string; lessonId: string }> 
+}) {
+  const { courseId, lessonId } = await params;
   
-  // Tìm bài học hiện tại và các bài lân cận
+  const course = content.courses.find(c => c.id === courseId);
+  if (!course) notFound();
+
   let currentLesson = null;
   let prevLesson = null;
   let nextLesson = null;
   
-  const allLessons = content.modules.flatMap(m => m.lessons);
-  const currentIndex = allLessons.findIndex(l => l.id === id);
+  const allLessons = course.modules.flatMap(m => m.lessons);
+  const currentIndex = allLessons.findIndex(l => l.id === lessonId);
   
-  if (currentIndex === -1) {
-    notFound();
-  }
+  if (currentIndex === -1) notFound();
   
   currentLesson = allLessons[currentIndex];
   if (currentIndex > 0) prevLesson = allLessons[currentIndex - 1];
@@ -28,7 +32,6 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         <p className="text-gray-600">{currentLesson.description}</p>
       </div>
       
-      {/* Khung chứa Video */}
       <div className="aspect-video bg-gray-900 rounded-lg overflow-hidden mb-8 shadow-lg">
         <iframe
           width="100%"
@@ -41,11 +44,10 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         ></iframe>
       </div>
       
-      {/* Nút điều hướng */}
       <div className="flex justify-between items-center border-t pt-6">
         {prevLesson ? (
           <Link 
-            href={`/lesson/${prevLesson.id}`}
+            href={`/course/${courseId}/lesson/${prevLesson.id}`}
             className="flex items-center text-blue-600 hover:text-blue-800 font-medium"
           >
             ← {prevLesson.title}
@@ -54,13 +56,15 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         
         {nextLesson ? (
           <Link 
-            href={`/lesson/${nextLesson.id}`}
+            href={`/course/${courseId}/lesson/${nextLesson.id}`}
             className="flex items-center text-white bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium transition-colors"
           >
             Tiếp theo: {nextLesson.title} →
           </Link>
         ) : (
-          <div className="text-green-600 font-medium">🎉 Bạn đã hoàn thành khóa học!</div>
+          <Link href="/" className="text-green-600 font-medium hover:underline">
+            🎉 Hoàn thành khóa học! (Về trang chủ)
+          </Link>
         )}
       </div>
     </div>
