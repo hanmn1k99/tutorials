@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import content from '../data/content.json';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Hệ Thống Đào Tạo AAS - Video Platform',
-  description: 'Nền tảng học tập và hướng dẫn nội bộ chuyên nghiệp',
+  title: content.siteConfig.title,
+  description: content.siteConfig.headerSubtitle,
 };
 
 export default function RootLayout({

@@ -1,16 +1,35 @@
 <div align="center">
   <img src="https://img.shields.io/badge/AAS_Academy-v2.0-blue?style=for-the-badge" alt="AAS Academy Badge" />
-  <h1>Hệ Thống Đào Tạo Nội Bộ AAS (Videobook)</h1>
+  <img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  
+  <h1>Hệ Thống Đào Tạo Nội Bộ (Videobook)</h1>
   <p>Nền tảng xem video hướng dẫn chuyên nghiệp, cấu trúc dạng kịch bản bài học (giống Gitbook).</p>
 </div>
 
 <hr />
 
 ## 🌟 Điểm nổi bật
-- **Giao diện hiện đại (Modern UI):** Thiết kế tối giản, chuyên nghiệp theo phong cách doanh nghiệp (Zalo, AAS).
+- **Giao diện hiện đại (Modern UI):** Thiết kế tối giản, chuyên nghiệp theo phong cách doanh nghiệp.
+- **Tự do cấu hình Thương hiệu:** Dễ dàng đổi tên ứng dụng, slogan, và danh sách khóa học mà không cần đụng vào code giao diện (chỉ cần sửa file `src/data/content.json`).
 - **Trải nghiệm học tập liền mạch:** Chuyển đổi giữa các bài học, xem video mượt mà không bị gián đoạn.
-- **Dữ liệu linh hoạt:** Dễ dàng thay đổi kịch bản, thêm khóa học chỉ bằng cách sửa duy nhất file `content.json`.
 - **Tối ưu hóa hệ thống:** Tốc độ load cực nhanh nhờ Next.js 14, hỗ trợ Build Standalone cho Docker.
+
+## ⚙️ Tùy Chỉnh Thương Hiệu & Dữ Liệu
+Hệ thống được thiết kế để bạn tự do đổi tên thương hiệu. Hãy mở file `src/data/content.json` và sửa phần `siteConfig`:
+```json
+{
+  "siteConfig": {
+    "title": "Tên Công Ty Của Bạn",
+    "versionBadge": "v2.0",
+    "headerSubtitle": "Hệ thống Đào tạo Nội bộ",
+    "welcomeTitle": "Chào mừng đến với hệ thống đào tạo",
+    "welcomeSubtitle": "Lựa chọn khóa học bên dưới..."
+  },
+  "courses": [ ... ]
+}
+```
 
 ---
 
@@ -24,15 +43,15 @@
 ### 2. Tải Mã Nguồn
 Tạo một thư mục chứa hệ thống và tải code từ Github về:
 ```bash
-mkdir -p /opt/aas-academy
-cd /opt/aas-academy
+mkdir -p /opt/videobook
+cd /opt/videobook
 
 # Tải code vào thư mục con tên là "app"
 git clone https://github.com/hanmn1k99/tutorials.git app
 ```
 
 ### 3. Cấu Hình Khởi Chạy (Docker Compose)
-Tại thư mục gốc `/opt/aas-academy`, tạo file quản lý tiến trình `docker-compose.yml`:
+Tại thư mục gốc `/opt/videobook`, tạo file quản lý tiến trình `docker-compose.yml`:
 ```bash
 nano docker-compose.yml
 ```
@@ -44,7 +63,7 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: aas-academy-app
+    container_name: videobook-app
     ports:
       - "8080:3000" # Đổi 8080 thành Port Server bạn muốn mở ra ngoài
     restart: unless-stopped
@@ -62,27 +81,10 @@ sudo docker-compose up -d --build
 **Thành công!** Bạn có thể truy cập hệ thống qua đường dẫn: `http://<IP-SERVER-CỦA-BẠN>:8080`
 
 ### 🔄 Cập nhật phiên bản mới
-Mỗi khi bạn sửa dữ liệu khóa học hoặc update code, chỉ cần chạy cụm lệnh sau để cập nhật lại hệ thống mà không làm chết Server:
+Mỗi khi bạn sửa cấu hình thương hiệu hoặc nội dung trong file `content.json`, hãy push code lên Github và chạy lệnh sau trên server để cập nhật:
 ```bash
-cd /opt/aas-academy/app
+cd /opt/videobook/app
 git pull origin main
 cd ..
 sudo docker-compose up -d --build
 ```
-
----
-
-## 🛠 Hướng Dẫn Dành Cho Lập Trình Viên (Local Development)
-
-Nếu bạn muốn mở source code trên máy tính cá nhân để tự chỉnh sửa:
-```bash
-# 1. Tải thư viện
-npm install
-
-# 2. Chạy server mô phỏng
-npm run dev
-```
-Trang web sẽ chạy tại `http://localhost:3000`.
-
----
-*Phát triển bởi Đội ngũ IT - Phiên bản 2.0*
