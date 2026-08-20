@@ -1,0 +1,37 @@
+{
+  "modules": [
+    {
+      "id": "module-1",
+      "title": "1. Bắt đầu với phần mềm",
+      "lessons": [
+        {
+          "id": "gioi-thieu",
+          "title": "1.1 Giới thiệu tổng quan",
+          "videoId": "dQw4w9WgXcQ",
+          "type": "youtube",
+          "description": "Video giới thiệu tổng quan về phần mềm và những tính năng chính."
+        },
+        {
+          "id": "cai-dat",
+          "title": "1.2 Hướng dẫn cài đặt",
+          "videoId": "jNQXAC9IVRw",
+          "type": "youtube",
+          "description": "Cách tải và cài đặt phần mềm lên máy tính của bạn."
+        }
+      ]
+    },
+    {
+      "id": "module-2",
+      "title": "2. Sử dụng các tính năng cơ bản",
+      "lessons": [
+        {
+          "id": "tinh-nang-1",
+          "title": "2.1 Tính năng số 1",
+          "videoId": "LXb3EKWsInQ",
+          "type": "youtube",
+          "description": "Hướng dẫn sử dụng tính năng cơ bản đầu tiên."
+        }
+      ]
+    }
+  ]
+}
