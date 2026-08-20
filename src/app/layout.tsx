@@ -5,8 +5,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Hệ thống Hướng dẫn Nội bộ',
-  description: 'Hệ thống học tập qua video',
+  title: 'Hệ Thống Đào Tạo AAS - Video Platform',
+  description: 'Nền tảng học tập và hướng dẫn nội bộ chuyên nghiệp',
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50 text-black">
+        <div className="min-h-screen bg-[#F4F5F7] text-gray-900">
           {children}
         </div>
       </body>

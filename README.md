@@ -1,74 +1,70 @@
-# Videobook (Video Tutorials Platform)
+<div align="center">
+  <img src="https://img.shields.io/badge/AAS_Academy-v2.0-blue?style=for-the-badge" alt="AAS Academy Badge" />
+  <h1>Hệ Thống Đào Tạo Nội Bộ AAS (Videobook)</h1>
+  <p>Nền tảng xem video hướng dẫn chuyên nghiệp, cấu trúc dạng kịch bản bài học (giống Gitbook).</p>
+</div>
 
-Một nền tảng xem video hướng dẫn giống Gitbook, được xây dựng bằng **Next.js** và **Tailwind CSS**.
+<hr />
 
-## Tính năng
-- Thanh điều hướng (Sidebar) với các khóa học và bài học.
-- Nút chuyển bài (Trước/Tiếp theo).
-- Xem video Youtube/HTML5 dễ dàng.
+## 🌟 Điểm nổi bật
+- **Giao diện hiện đại (Modern UI):** Thiết kế tối giản, chuyên nghiệp theo phong cách doanh nghiệp (Zalo, AAS).
+- **Trải nghiệm học tập liền mạch:** Chuyển đổi giữa các bài học, xem video mượt mà không bị gián đoạn.
+- **Dữ liệu linh hoạt:** Dễ dàng thay đổi kịch bản, thêm khóa học chỉ bằng cách sửa duy nhất file `content.json`.
+- **Tối ưu hóa hệ thống:** Tốc độ load cực nhanh nhờ Next.js 14, hỗ trợ Build Standalone cho Docker.
 
-## Hướng dẫn Triển khai Thủ công trên Ubuntu Server (Sử dụng Docker)
+---
 
-Phần này hướng dẫn bạn cách tự tạo thư mục, tự cấu hình file chạy Docker để có thể hoàn toàn kiểm soát dự án của mình thay vì dùng cấu hình làm sẵn.
+## 🚀 Hướng Dẫn Cài Đặt Lên Server Ubuntu (Môi Trường Production)
 
-### Yêu cầu
-- Máy chủ Ubuntu đã cài đặt **Docker** và **Docker Compose**.
-- Đã cài đặt **Git**.
+Để hệ thống hoạt động ổn định và dễ quản lý nhất, chúng ta sẽ cài đặt thủ công thông qua Docker.
 
-### Các bước thực hiện chi tiết
+### 1. Chuẩn bị Server
+- Đảm bảo Server Ubuntu của bạn đã cài đặt sẵn **Docker**, **Docker Compose** và **Git**.
 
-**Bước 1: Tạo thư mục làm việc trên Server**
-Đầu tiên, hãy tạo một thư mục riêng cho dự án và di chuyển vào đó:
+### 2. Tải Mã Nguồn
+Tạo một thư mục chứa hệ thống và tải code từ Github về:
 ```bash
-mkdir -p /opt/videobook
-cd /opt/videobook
-```
+mkdir -p /opt/aas-academy
+cd /opt/aas-academy
 
-**Bước 2: Lấy mã nguồn từ Github**
-Tải mã nguồn về bên trong thư mục vừa tạo (ví dụ clone vào thư mục `app`):
-```bash
+# Tải code vào thư mục con tên là "app"
 git clone https://github.com/hanmn1k99/tutorials.git app
 ```
 
-**Bước 3: Tự tạo cấu hình docker-compose.yml**
-Tạo file `docker-compose.yml` để cấu hình port và quản lý container theo ý bạn:
+### 3. Cấu Hình Khởi Chạy (Docker Compose)
+Tại thư mục gốc `/opt/aas-academy`, tạo file quản lý tiến trình `docker-compose.yml`:
 ```bash
 nano docker-compose.yml
 ```
-Dán nội dung sau vào file (bạn có thể thay đổi port `3000:3000` thành port khác như `8080:3000` nếu muốn đổi cổng truy cập):
+Dán cấu hình sau vào. Bạn có thể thay đổi cổng truy cập (ở đây là `8080`) thành cổng bạn mong muốn:
 ```yaml
 version: '3.8'
 services:
-  videobook-web:
+  web:
     build:
       context: ./app
       dockerfile: Dockerfile
-    container_name: videobook-app
+    container_name: aas-academy-app
     ports:
-      - "3000:3000" # Sửa số 3000 đầu tiên thành port bạn muốn
+      - "8080:3000" # Đổi 8080 thành Port Server bạn muốn mở ra ngoài
     restart: unless-stopped
     environment:
       - NODE_ENV=production
 ```
-Lưu lại (Nhấn `Ctrl+O`, `Enter`, rồi `Ctrl+X`).
+*(Nhấn `Ctrl+O` > `Enter` để lưu, sau đó `Ctrl+X` để thoát).*
 
-**Bước 4: Khởi chạy dự án**
-Chạy lệnh sau để Docker bắt đầu build mã nguồn và chạy ứng dụng:
+### 4. Bắt Đầu Khởi Chạy
+Chỉ bằng 1 dòng lệnh, Docker sẽ tự động đóng gói ứng dụng và chạy ngầm:
 ```bash
 sudo docker-compose up -d --build
 ```
 
-**Bước 5: Kiểm tra kết quả**
-Xem log để đảm bảo app đang chạy tốt:
-```bash
-sudo docker-compose logs -f
-```
-Bây giờ, bạn có thể truy cập `http://<IP-SERVER>:<PORT-BẠN-ĐẶT>` để xem kết quả.
+**Thành công!** Bạn có thể truy cập hệ thống qua đường dẫn: `http://<IP-SERVER-CỦA-BẠN>:8080`
 
-**Khi có cập nhật code mới:**
-Bạn chỉ cần vào thư mục `app`, kéo code mới về và build lại hệ thống:
+### 🔄 Cập nhật phiên bản mới
+Mỗi khi bạn sửa dữ liệu khóa học hoặc update code, chỉ cần chạy cụm lệnh sau để cập nhật lại hệ thống mà không làm chết Server:
 ```bash
-cd /opt/videobook/app
+cd /opt/aas-academy/app
 git pull origin main
 cd ..
 sudo docker-compose up -d --build
@@ -76,14 +72,17 @@ sudo docker-compose up -d --build
 
 ---
 
-## Hướng dẫn Phát triển ở Local (Môi trường máy cá nhân)
+## 🛠 Hướng Dẫn Dành Cho Lập Trình Viên (Local Development)
 
-1. Cài đặt các gói phụ thuộc:
-   ```bash
-   npm install
-   ```
-2. Chạy server ở chế độ phát triển:
-   ```bash
-   npm run dev
-   ```
-3. Truy cập `http://localhost:3000`.
+Nếu bạn muốn mở source code trên máy tính cá nhân để tự chỉnh sửa:
+```bash
+# 1. Tải thư viện
+npm install
+
+# 2. Chạy server mô phỏng
+npm run dev
+```
+Trang web sẽ chạy tại `http://localhost:3000`.
+
+---
+*Phát triển bởi Đội ngũ IT - Phiên bản 2.0*
