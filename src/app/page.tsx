@@ -1,35 +1,41 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import content from '../data/content.json';
+import config from '../../config.json';
 
 export default function Home() {
-  const { siteConfig } = content;
-  
   return (
     <div className="min-h-screen bg-[#F4F5F7]">
       <header className="bg-white shadow-sm sticky top-0 z-10 px-6 py-3 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
+          
+          {config.logoUrl ? (
+            <img src={config.logoUrl} alt="Logo" className="h-9 w-auto object-contain rounded" />
+          ) : (
+            <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          )}
+
           <h1 className="text-xl font-bold text-gray-800 tracking-tight flex items-center gap-2">
-            {siteConfig.title}
-            {siteConfig.versionBadge && (
+            {config.siteName}
+            {config.versionBadge && (
               <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full border border-blue-200">
-                {siteConfig.versionBadge}
+                {config.versionBadge}
               </span>
             )}
           </h1>
         </div>
-        <div className="text-sm font-medium text-gray-500 hidden md:block">{siteConfig.headerSubtitle}</div>
+        <div className="text-sm font-medium text-gray-500 hidden md:block">{config.headerSubtitle}</div>
       </header>
 
       <div className="max-w-6xl mx-auto p-8 pt-12">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight mb-3">{siteConfig.welcomeTitle}</h2>
-          <p className="text-gray-500 text-lg max-w-2xl mx-auto">{siteConfig.welcomeSubtitle}</p>
+          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight mb-3">{config.welcomeTitle}</h2>
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">{config.welcomeSubtitle}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
